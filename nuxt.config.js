@@ -13,7 +13,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  // plugins: ['~plugins/buefy.js'],
+  plugins: ['~plugins/buefy.js'],
   /*
   ** Customize the progress bar color
   */
@@ -22,6 +22,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    vendor: [ 'buefy' ],
     /*
     ** Run ESLint on save
     */

@@ -1,61 +1,81 @@
 <template>
+<div>
+  <nav-bar />
+  <hero-promo />
   <section class="container">
     <div>
-      <app-logo/>
+
       <h1 class="title">
         alo
       </h1>
-      <p>{{ name }}</p>
+
+      <button class="button is-medium" @click="snackbar">
+            Launch snackbar (default)
+        </button>
     </div>
   </section>
+</div>
+
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
-
+import NavBar from '~/components/NavBar.vue';
+import HeroPromo from "~/components/HeroPromo.vue";
 export default {
   components: {
-    AppLogo
+    HeroPromo,
+    NavBar
   },
-  asyncData (context) {
-    return { name: "hello" }
+  asyncData(context) {
+    return { name: "hello" };
   },
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 500);
-    })
+    });
+  },
+  methods: {
+    snackbar() {
+      this.$snackbar.open(
+        `Default, positioned bottom-right with a green 'OK' button`
+      );
+    },
+    warning() {
+      this.$snackbar.open({
+        message: "Yellow button and positioned top-left",
+        type: "is-warning",
+        position: "is-top",
+        actionText: "Retry",
+        queue: false,
+        onAction: () => {
+          this.$toast.open({
+            message: "Action pressed",
+            queue: false
+          });
+        }
+      });
+    },
+    danger() {
+      this.$snackbar.open({
+        duration: 5000,
+        message:
+          "Snackbar with red action, positioned on bottom-left and a callback",
+        type: "is-danger",
+        position: "is-bottom-left",
+        actionText: "Undo",
+        onAction: () => {
+          this.$toast.open({
+            message: "Action pressed",
+            queue: false
+          });
+        }
+      });
+    }
   }
-}
+};
 </script>
 
 <style>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
 
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
 </style>
