@@ -22,8 +22,6 @@ module.exports = {
   ** Build configuration
   */
   build: {
-
-    vendor: ['Buefy'],
     /*
     ** Run ESLint on save
     */
